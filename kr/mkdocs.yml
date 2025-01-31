@@ -4,3 +4,4 @@ theme:
 
 nav:
   - Home: index.md
+  - Intro: /0_outline/intro.md
