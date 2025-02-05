@@ -1,17 +1,15 @@
-# Welcome to MkDocs
+# HyperBlaze's PyTorch notes
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Welcome
 
-## Commands
+## Table of Contents
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+### Intro
+Check out the korean intro [here](https://hyperblaze456.github.io/torch-study/0_outline/intro/)
 
-## Project layout
+### TorchLeet
+Go to [somewhere]()
+### PyTorch Basics
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+#### Tensors
+check [here]()
