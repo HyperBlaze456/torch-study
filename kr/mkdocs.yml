@@ -6,5 +6,4 @@ nav:
   - Home: index.md
   - Outline: 
     - Intro: 0_outline/intro.md
-  - Basics:
-    - Basics: 1_tensors/basics.md
+  - TorchLeet: torchleet/index.md
