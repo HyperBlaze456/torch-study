@@ -317,8 +317,22 @@
 
 
 <h1 id="linear-regression">Linear regression</h1>
-<p>가장 간단한 선형 회귀 모델을 구현하는 문제이다.</p>
-<p>nn.Module을 상속받은 모델의 </p>
+<p>가장 간단한 선형 회귀 모델을 구현하는 문제입니다.</p>
+<p>nn.Linear를 사용하면 한번에 완성할 수 있게 되어 문제가 너무 쉬워지니, 해당 문제는 nn.Parameter를 사용해 직접 선형 회귀에 필요한 계산을 짜고, 이를 <code>forward()</code> 함수에 작성하는 방식으로 해결해 봅시다.</p>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+import torch.optim as optim
+
+class LinearRegressionModel(nn.Module):
+    def __init__(self):
+        super().__init__() # 꼭 먼저 nn.Module의 생성자를 호출해주세요.
+        self.weight = nn.Parameter(torch.randn(1), requires_grad = True) # learnable 한 nn.Parameter로 선언해야 합니다.
+        self.bias = nn.Parameter(torch.randn(1), requires_grad = True)
+    def forward(self, x):
+        # linear regression은 y=wx+b로, 단순한 일차방정식의 꼴입니다
+        return self.weight * x + self.bias
+
+</code></pre>
 
 
 
