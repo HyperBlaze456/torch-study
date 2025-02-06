@@ -1,9 +1,21 @@
 site_name: HyperBlaze's PyTorch notebook
 theme: 
   name: material
+  features:
+    - content.code.copy
+    - content.code.annotate
 
 nav:
   - Home: index.md
   - Outline: 
     - Intro: 0_outline/intro.md
   - TorchLeet: torchleet/index.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
