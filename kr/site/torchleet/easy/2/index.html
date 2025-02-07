@@ -12,15 +12,15 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>2 - HyperBlaze's PyTorch notebook</title>
+        <title>커스텀 Dataset - HyperBlaze's PyTorch notebook</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
       
       
 
@@ -57,6 +57,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#dataset" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -89,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2
+              커스텀 Dataset
             
           </span>
         </div>
@@ -187,7 +192,6 @@
   
   <span class="md-ellipsis">
     Home
-    
   </span>
   
 
@@ -218,7 +222,6 @@
   
   <span class="md-ellipsis">
     Outline
-    
   </span>
   
 
@@ -244,7 +247,6 @@
   
   <span class="md-ellipsis">
     Intro
-    
   </span>
   
 
@@ -273,7 +275,6 @@
   
   <span class="md-ellipsis">
     TorchLeet
-    
   </span>
   
 
@@ -299,6 +300,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#datacsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      data.csv 설명
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      특수 메서드
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      평가 기준
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -313,10 +351,43 @@
                   
 
 
-
-  <h1>2</h1>
-
-
+<h1 id="dataset">커스텀 Dataset</h1>
+<p>이 문제에서, 모델을 학습할때 필요한 실제 학습 데이터는 엑셀 csv 파일로 주어져 있습니다.
+문제의 목표는 Dataset를 상속받은 커스텀 데이터셋 클래스를 활용해, csv 파일을 읽어들이고 column별로 알맞게 입/출력 값을 정의하는 것입니다.</p>
+<h2 id="datacsv"><code>data.csv</code> 설명</h2>
+<p>정말 간단하게 X, y 두개의 컬럼이 존재하고, 각 컬럼은 float 숫자들이 들어있습니다.
+이들을 각각 torch.tensor를 활용해 차원 방향을 맞추어 정의해주세요.</p>
+<p>저처럼 torch.Tensor를 직접 정의하는 방법은 쓰지 마세요. 정신건강에 해롭습니다.</p>
+<p><a href="https://chatgpt.com/share/67a5a717-2c8c-8013-9da6-a90790590b4c">레퍼런스</a></p>
+<h2 id="_1">특수 메서드</h2>
+<p>데이터셋 클래스를 정의할 때, 특수 메서드인 <code>__len__</code>와 <code>__getitem__</code>을 구현해야 합니다.
+<a href="https://pytorch.org/tutorials/beginner/basics/data_tutorial.html#creating-a-custom-dataset-for-your-files">해당 링크</a> 를 참조하세요</p>
+<p>실제 토치를 활용해야 하는 환경에서는 의외로 커스텀 데이터셋을 많이 활용해야 하는 경우가 많습니다. 특히 텍스트가 아닌 이미지, 오디오 데이터셋을 활용할 때는 모델의 구조, 학습 목표 등에 따라 이 Dataset를 상속해 만든 커스텀 데이터셋에서 데이터 전처리를 진행하는 경우가 많습니다.</p>
+<p>나중에 좀더 깊게 알아보도록 하겠습니다. 다른 문제들에도 활용하는 방법을 미리 고민해보셔도 좋습니다.</p>
+<h2 id="_2">평가 기준</h2>
+<ol>
+<li>Bug free, same results<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 각 epoch 단계에서 학습된 loss가 유사한가</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 각 파라미터가 유사한가</li>
+</ul>
+</li>
+<li>데이터셋 정의<ul class="task-list">
+<li><code>__init__</code> 메소드에서 다음과 같은 작업이 진행되었는가?<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> csv 파일을 읽어왔다</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 입력 텐서 x를 정의했다</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 출력 텐서 y를 정의했다</li>
+</ul>
+</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>__len__</code>을 정확하게 구현했는가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>__getitem__</code>을 정확하게 구현했는가?(1번이 먼저 걸러주는 부분입니다)</li>
+</ul>
+</li>
+<li>Dataloader 정의<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> dataset 인스턴스를 커스텀 데이터셋을 활용해 만들었는가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> dataset 인스턴스와 기타 설정을 함께 넘겨 dataloader 인스턴스를 만들었는가?</li>
+</ul>
+</li>
+</ol>
 
 
 
@@ -366,7 +437,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
     
   </body>
