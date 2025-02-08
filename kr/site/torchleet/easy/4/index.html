@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
       
       
 
@@ -192,6 +192,7 @@
   
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -222,6 +223,7 @@
   
   <span class="md-ellipsis">
     Outline
+    
   </span>
   
 
@@ -247,6 +249,7 @@
   
   <span class="md-ellipsis">
     Intro
+    
   </span>
   
 
@@ -275,6 +278,7 @@
   
   <span class="md-ellipsis">
     TorchLeet
+    
   </span>
   
 
@@ -303,6 +307,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      요구사항
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      평가 기준
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -316,10 +346,39 @@
                   
 
 
+
 <h1 id="_1">커스텀 손실 함수</h1>
 <p>해당 문제는 직접 활성화 함수를 만들어야 하는 문제입니다.</p>
 <p>논문 구현을 하기 위해서 가장 필요한 필수적인 작업 중 하나가 정확한 손실 함수를 만드는 것입니다.
 수많은 논문들이 존재하는 모델 아키텍처를 일부 셀을 조합하고, 이에 맞춰 손실 함수를 조정하는 방식으로 구현됩니다. 따라서 손실 함수를 잘 구현하는 것은 모델 구현의 핵심 요소이니, 비록 간단한 문제이지만 나중에는 많이 복잡해지고 중요해질 것입니다.</p>
+<h2 id="_2">요구사항</h2>
+<p><code>HuberLoss</code>라는 클래스를 <code>nn.Module</code>을 상속해 만들어주세요.</p>
+<p>수학 계산은 <code>forward</code>에서 진행하고, 이 값을 반환해야 합니다.</p>
+<p>Huber 손실 함수는 다음과 같습니다</p>
+<div class="arithmatex">\[
+L_{\delta}(y, \hat{y}) = 
+\begin{cases} 
+\frac{1}{2}(y - \hat{y})^2 &amp; \text{for } |y - \hat{y}| \leq \delta, \\
+\delta \cdot (|y - \hat{y}| - \frac{1}{2} \delta) &amp; \text{for } |y - \hat{y}| &gt; \delta,
+\end{cases}
+\]</div>
+<p>파라미터 <span class="arithmatex">\(\delta\)</span> 가 존재하기에, 이를 <code>__init__</code>에서 정의해주세요.</p>
+<h2 id="_3">평가 기준</h2>
+<ol>
+<li>Reproductive results<ul class="task-list">
+<li>delta를 조정하면 값이 달라질 수 있어, 완전히 같아야 할 필요가 없습니다</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 코드 실행이 버그 업이 잘 됐나?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 학습 이후 loss가 유사한가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 학습 이후 파라미터들이 유사한가?</li>
+</ul>
+</li>
+<li>HuberLoss 구현<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 조건에 맞춰서 연산을 수행하는가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 마지막에 평균을 활용하여 return 하는가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> HuberLoss 인스턴스를 만들었다.</li>
+</ul>
+</li>
+</ol>
 
 
 
@@ -369,7 +428,11 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
