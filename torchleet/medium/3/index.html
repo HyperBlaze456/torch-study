@@ -16,7 +16,7 @@
     
     
       
-        <title>LSTM 구현하기 - HyperBlaze's PyTorch notebook</title>
+        <title>RNN 구현하기 - HyperBlaze's PyTorch notebook</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lstm" class="md-skip">
+        <a href="#rnn" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LSTM 구현하기
+              RNN 구현하기
             
           </span>
         </div>
@@ -342,29 +342,27 @@
                   
 
 
-<h1 id="lstm">LSTM 구현하기</h1>
-<p>순서가 다소 뒤섞인거 같다구요? 저도 보자마자 그 생각 했습니다. 왜 LSTM이 RNN보다 먼저 나온 것일까요?
-개인적인 추측이지만 확실하게 nn.LSTM을 사용해야 한다는 것 때문에 먼저 소개한 거 같습니다. 그냥 쌩으로 구현하면 복잡하니까요.</p>
-<p>LSTM은 기존 RNN에서 소멸하는 기울기(vanishing gradient) 문제를 해결하기 위해 은닉층에 망각, 입력, 출력 게이트가 추가된 구조입니다.
-nn.LSTM은 이 구성 요소들이 전부 있는 완전한 구조체이기 때문에, 그 자체로 한개의 모델입니다.</p>
-<p>따라서 nn.LSTM 인스턴스에 텐서를 제공하면 결과 텐서와 역전파에 활용될 기울기 관련된게 tuple 형식으로 반환되니, 이를 제대로 unpacking 해 사용하시기를...</p>
+<h1 id="rnn">RNN 구현하기</h1>
+<p>어째서인지 모르겠지만 순서가 꼬인 RNN 모델입니다.
+이전 LSTM에서 잠깐 언급되었듯이, 비록 기울기 소실(gradient vanishing) 문제가 있지만 RNN은 시퀀스 데이터를 다루는 데 초석을 놓은 모델입니다.
+아직도 RWKV로 현역에서 내려오지 않았기도 했죠.
+아무튼, RNN은 계속 재귀적으로 자기 자신을 거친 입력을 정해진 횟수만큼 반복하는 방법으로 동작됩니다. 순서대로 천천히 시퀀스의 hidden state를 업데이트 하기 때문에 시퀀스 데이터를 다루는 데 있어서 좋은 성능을 보여줍니다.
+이 성질때문에 기울기 소실이 일어나지만, 아무렴 어떻습니까?</p>
 <h2 id="_1">요구사항</h2>
-<ul>
-<li>nn.LSTM을 활용했다.</li>
-<li>LSTM을 거친 결과를 적절하게 FC에 통과시켰다.</li>
-<li>결과를 반환했다(어떻게 하는지는 자유입니다)</li>
-</ul>
+<p>이 모델의 목표는 입력 데이터를 기반으로 사인 함수를 예측하는 문제입니다.
+다음과 같은 구조를 가지고 있어야 합니다.
+- 한개의 nn.RNN 레이어
+- 이를 최종적으로 결과로 (output projection)하는 레이어</p>
 <h2 id="_2">평가 기준</h2>
 <ol>
-<li>재현 가능한 결과<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 코드 실행이 오류 없이 진행되었는가?</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Batch와 시퀀스의 임베딩간 혼동 없이 제대로 된 값에 적용했는가?</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 학습 이후 loss가 낮아야 한다.</li>
+<li>Reproductive results<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 코드 실행이 버그 없이 작동했는가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 학습 이후 loss가 유사한가?</li>
 </ul>
 </li>
-<li>모델 구현<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> LSTM 이후 FC의 구조를 따르고 있는가?</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 시퀀스를 활용해 결과를 내었는가? (실수할 수 있다)</li>
+<li>모델 구조<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 모델 구조가 올바른가?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 최종 레이어가 정상적으로 스칼라를 출력하는가?</li>
 </ul>
 </li>
 </ol>
