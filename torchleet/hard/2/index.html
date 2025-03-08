@@ -344,9 +344,10 @@
 
 <h1 id="self-attention">Self-Attention 구현하기</h1>
 <p>이전 주차에서 어텐션을 활용한 모델들을 배워봤습니다. 토치가 제공하는 트랜스포머를 활용해보고, 기존 RNN 모델에 어텐션도 추가해 보았습니다.</p>
-<p>하지만, 실제로 Attention is All you need 논문에서 제시된 트랜스포머를 직접 구현해본적이 없네요.
-현대 LLM, 특히 새로운 딥시크 모델들은 독특한 어텐션 메커니즘을 사용합니다. 기존 Self-Attention 메커니즘인 Scaled-dot product attention을 구현해보겠습니다.
-이번엔 예외적으로 넘파이를 활용합니다. 해당 링크에서 푸세요: https://www.deep-ml.com/problems/53</p>
+<p>하지만, 실제로 Attention is All you need 논문에서 제시된 트랜스포머를 직접 구현해본적이 없네요.</p>
+<p>현대 LLM, 특히 새로운 딥시크 모델들은 독특한 어텐션 메커니즘을 사용합니다. 이런 것들을 구현하기 위해서는, 기존 Self-Attention 메커니즘인 Scaled-dot product attention에 대한 깊은 이해가 필요합니다.</p>
+<p>이번 주차에서는 넘파이를 활용해 입력 데이터에 대한 SDPA를 구현해보겠습니다.</p>
+<p>해당 링크에서 푸세요: <a href="https://www.deep-ml.com/problems/53">Deep-ml 53</a></p>
 <h2 id="_1">요구사항</h2>
 <p>어텐션 메커니즘은 다음과 같은 과정을 거칩니다.
 0. 각 토큰의 임베딩 입력
