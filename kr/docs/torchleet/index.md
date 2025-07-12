@@ -13,5 +13,9 @@
 ### Medium
 - [1. LSTM 모델 구현하기](medium/1.md)
     - [1-m-h1. nn.LSTM, LSTMCell 사용 금지, 직접 구현해보기]()
-- [2. CNN 구현하기]()
+- [2. CNN 구현하기](medium/2.md)
     - [2-m-h1. VGG-16 모델 구현]()
+    - [2-m-h2. ResNet 모델 구현]()
+- [3. RNN 구현하기](medium/3.md)
+    - [3-m-h1. nn.RNN, RNNCell 사용 금지, 직접 구현해보기]()
+- 
